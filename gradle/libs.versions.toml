@@ -1,0 +1,5 @@
+[versions]
+dicord4j = "3.3.0"
+
+[libraries]
+dicord4j = { module = "com.discord4j:discord4j-core", version.ref = "dicord4j" }

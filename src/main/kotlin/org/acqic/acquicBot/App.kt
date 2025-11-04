@@ -1,21 +1,26 @@
 package org.acqic.acquicBot
 
-import org.graalvm.polyglot.Context
-import org.graalvm.polyglot.Source
-import java.io.File
+import discord4j.core.DiscordClient
+import discord4j.core.GatewayDiscordClient
+import discord4j.core.event.domain.message.MessageCreateEvent
+import discord4j.core.`object`.entity.Message
+import org.acqic.acquicBot.events.BotEvent
+import reactor.core.publisher.Mono
+
+val events: Array<Class<BotEvent>> = arrayOf(
+
+)
 
 fun main() {
-    Context.create().eval(
-        "js",
-        "var jsHello = () => {\n" +
-                "    console.log(\"Hello from javascriptttt\");\n" +
-                "}"
-
-//        with(File(, "hi.js")) {
-//            Source
-//                .newBuilder(Source.findLanguage(this), this)
-//                .build()
-//        }
-    ).getMember("jsHello").execute()
-        .asString().also(::println)
+    DiscordClient.create("TOKEN")
+        .withGateway { client: GatewayDiscordClient? ->
+            client!!.on(MessageCreateEvent::class.java) { event: MessageCreateEvent? ->
+                val message = event!!.message
+                if (message.content.equals("!ping", ignoreCase = true)) {
+                    message.channel.flatMap { it -> it.createMessage("Pong!") }
+                }
+                Mono.empty<Message?>()
+            }
+        }
+        .block()
 }

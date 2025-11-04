@@ -1,7 +1,6 @@
 plugins {
     kotlin("jvm") version "2.2.20"
     id("application")
-    id("org.graalvm.buildtools.native") version "0.10.2"
 }
 
 group = "org.acqic"
@@ -13,8 +12,8 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    implementation("org.graalvm.polyglot:polyglot:25.0.1")
-    implementation("org.graalvm.polyglot:js-community:25.0.1")
+    implementation(libs.dicord4j)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
 }
 
 tasks.test {
@@ -26,8 +25,4 @@ kotlin {
 
 application {
     mainClass.set("org.acqic.acquicBot.AppKt")
-    applicationDefaultJvmArgs =
-        "-agentlib:native-image-agent=config-output-dir=./graalcnf/".split(
-            " "
-        )
 }
