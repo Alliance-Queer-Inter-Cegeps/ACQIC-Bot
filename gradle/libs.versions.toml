@@ -1,5 +1,8 @@
 [versions]
-dicord4j = "3.3.0"
+kordex = "1.6.1"
+
+[plugins]
+kordex = { id = "dev.kordex.gradle.kordex", version.ref = "kordex" }
 
 [libraries]
-dicord4j = { module = "com.discord4j:discord4j-core", version.ref = "dicord4j" }
+kord-extensions = { module = "dev.kordex:kord-extensions", version.ref = "kordex" }

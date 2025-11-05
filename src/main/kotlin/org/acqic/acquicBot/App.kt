@@ -1,26 +1,23 @@
 package org.acqic.acquicBot
 
-import discord4j.core.DiscordClient
-import discord4j.core.GatewayDiscordClient
-import discord4j.core.event.domain.message.MessageCreateEvent
-import discord4j.core.`object`.entity.Message
-import org.acqic.acquicBot.events.BotEvent
-import reactor.core.publisher.Mono
+typealias State<S, A> = (S) -> Pair<S, A>
 
-val events: Array<Class<BotEvent>> = arrayOf(
+fun <S, A, B> State<S, A>.flatMap(next: (A) -> State<S, B>): State<S, B> = { s: S ->
+    with(this(s)) {
+        next(second)(first)
+    }
+}
 
-)
+fun <S> get(): State<S, S> = { s -> Pair(s, s) }
 
 fun main() {
-    DiscordClient.create("TOKEN")
-        .withGateway { client: GatewayDiscordClient? ->
-            client!!.on(MessageCreateEvent::class.java) { event: MessageCreateEvent? ->
-                val message = event!!.message
-                if (message.content.equals("!ping", ignoreCase = true)) {
-                    message.channel.flatMap { it -> it.createMessage("Pong!") }
-                }
-                Mono.empty<Message?>()
-            }
+    val test: State<Int, String> = { s ->
+        (s + 1).also { println(it) } to ":3"
+    }
+
+    test.flatMap { a: String ->
+        { s ->
+            s to print(a)
         }
-        .block()
+    }(5)
 }
