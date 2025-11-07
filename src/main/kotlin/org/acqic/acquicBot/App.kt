@@ -1,23 +1,36 @@
 package org.acqic.acquicBot
 
-typealias State<S, A> = (S) -> Pair<S, A>
+import dev.kord.core.Kord
+import dev.kord.gateway.Intent
+import dev.kord.gateway.Intents
+import dev.kord.gateway.PrivilegedIntent
+import io.github.cdimascio.dotenv.Dotenv
+import kotlinx.coroutines.runBlocking
+import me.jakejmattson.discordkt.dsl.bot
+import me.jakejmattson.discordkt.locale.Language
+import org.acqic.acquicBot.commands.handler.botCommands
 
-fun <S, A, B> State<S, A>.flatMap(next: (A) -> State<S, B>): State<S, B> = { s: S ->
-    with(this(s)) {
-        next(second)(first)
-    }
-}
+@OptIn(PrivilegedIntent::class)
+fun main(): Unit = runBlocking {
+    // .env file at the project root
+    val token = Dotenv.load().get("BOT_TOKEN")
 
-fun <S> get(): State<S, S> = { s -> Pair(s, s) }
+    bot(token) {
+        configure {
+            deleteInvocation = false
 
-fun main() {
-    val test: State<Int, String> = { s ->
-        (s + 1).also { println(it) } to ":3"
-    }
+            commandReaction = null
 
-    test.flatMap { a: String ->
-        { s ->
-            s to print(a)
+            intents = Intents(
+                Intent.MessageContent
+            )
         }
-    }(5)
+
+        onStart {
+            println("Bot started.")
+        }
+
+        botCommands.map { it() }
+        // botEvents.map { it() }
+    }
 }

@@ -1,17 +1,21 @@
 plugins {
     kotlin("jvm") version "2.2.20"
+    id("com.gradleup.shadow") version "9.0.0-beta4"
 }
 
 group = "org.acqic"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    maven { url = uri("https://jitpack.io") }
     mavenCentral()
 }
 
 dependencies {
     testImplementation(kotlin("test"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    implementation(libs.discordkt)
+    implementation(libs.coroutines)
+    implementation(libs.dotenv)
 }
 
 tasks.test {

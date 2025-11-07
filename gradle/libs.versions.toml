@@ -1,8 +1,9 @@
 [versions]
-kordex = "1.6.1"
-
-[plugins]
-kordex = { id = "dev.kordex.gradle.kordex", version.ref = "kordex" }
+discordkt = "271f8ebe79" # this is from jitpack.io
+coroutines = "1.10.2"
+dotenv = "6.4.2"
 
 [libraries]
-kord-extensions = { module = "dev.kordex:kord-extensions", version.ref = "kordex" }
+discordkt = { module = "com.github.MayaChen350:discordkt", version.ref = "discordkt" }
+coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+dotenv = { module = "io.github.cdimascio:dotenv-kotlin", version.ref = "dotenv"}
