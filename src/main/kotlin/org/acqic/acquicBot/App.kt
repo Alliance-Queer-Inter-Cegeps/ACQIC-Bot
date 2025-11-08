@@ -1,14 +1,13 @@
 package org.acqic.acquicBot
 
-import dev.kord.core.Kord
 import dev.kord.gateway.Intent
 import dev.kord.gateway.Intents
 import dev.kord.gateway.PrivilegedIntent
 import io.github.cdimascio.dotenv.Dotenv
 import kotlinx.coroutines.runBlocking
 import me.jakejmattson.discordkt.dsl.bot
-import me.jakejmattson.discordkt.locale.Language
 import org.acqic.acquicBot.commands.handler.botCommands
+import org.acqic.acquicBot.events.botEvents
 
 @OptIn(PrivilegedIntent::class)
 fun main(): Unit = runBlocking {
@@ -31,6 +30,6 @@ fun main(): Unit = runBlocking {
         }
 
         botCommands.map { it() }
-        // botEvents.map { it() }
+        botEvents.map { it() }
     }
 }
