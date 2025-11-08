@@ -7,7 +7,7 @@ class GetSourceLogicImpl : GetSourceLogic {
     val repoHostLink: String = "https://github.com/"
 
     object Pure {
-        fun processSourceLink(sourceLink: String): String = sourceLink + "MayaChen350/ACQIC-Bot"
+        fun processSourceLink(sourceLink: String): String = sourceLink + "Alliance-Queer-Inter-Cegeps/ACQIC-Bot"
     }
 
     override fun getSourceCode(): String = Pure.processSourceLink(repoHostLink)
