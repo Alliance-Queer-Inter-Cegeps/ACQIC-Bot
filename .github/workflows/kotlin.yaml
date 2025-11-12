@@ -12,7 +12,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v5
         with:
-          distribution: 'semeru'
+          distribution: 'temurin'
           java-version: 25
       - name: Gradle build
         run: chmod +x gradlew && ./gradlew build
