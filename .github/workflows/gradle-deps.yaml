@@ -15,7 +15,7 @@ jobs:
     - name: Setup Java
       uses: actions/setup-java@v5
       with:
-        distribution: 'oracle'
+        distribution: 'semeru'
         java-version: 25
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@v4
