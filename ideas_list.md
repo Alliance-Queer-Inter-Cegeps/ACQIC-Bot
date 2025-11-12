@@ -1,5 +1,5 @@
 # Liste d'idées
-- message éphéméres pour venting: code couleur
+- message éphéméres pour venting: code fruit
 
 
 ### Glossaire
